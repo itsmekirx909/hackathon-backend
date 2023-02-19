@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const dburi = process.env.DBLINK
+const dburi = process.env.DB_URI
 const PORT = process.env.PORT || 7000
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
@@ -10,7 +10,7 @@ const cors = require('cors')
 const router = require('./configs/routers/app')
 
 mongoose.connect(dburi)
-.then(()=>{})
+.then(()=>{console.log('connected')})
 .catch((e)=>{console.log(e)})
 
 app.use(express.json())

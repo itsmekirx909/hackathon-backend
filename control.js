@@ -4,64 +4,6 @@ const policeModel = require('../models/schema/police')
 
 // all cart related apis (all post api)
 const checkoutControllers = {
-    //     addToCart: async (req, res)=>{
-    //         const {cartProductName, cartProductDescription, cartProductImage, cartProductPrice, userId} = req.body
-
-    // if(!cartProductName || !cartProductDescription || !cartProductImage || !cartProductPrice || !userId){
-    //     res.json({
-    //         message: 'Could not get product data',
-    //         status: false
-    //     })
-    //     return;
-    // }
-
-    // const updatedData = {
-    //     cart_product_name: cartProductName,
-    //     cart_product_description: cartProductDescription,
-    //     cart_product_image: cartProductImage,
-    //     cart_product_price: cartProductPrice,
-    // }
-
-    // let oldData;
-
-    // SignUpModel.findById({_id: userId}, (error, data)=>{
-    //     if(error){
-    //         res.json({
-    //             message: 'Database error',
-    //             status: false
-    //         })
-    //         return;
-    //     }else{
-    //         if(!data){
-    //             res.json({
-    //                 message: 'No user logged in',
-    //                 status: false
-    //             })
-    //         }else{
-    //             oldData = data.cart
-    //             oldData.push(updatedData)
-
-
-    //             SignUpModel.findOneAndUpdate({_id: userId}, {cart: oldData}, (error, data)=>{
-    //                 if(error){
-    //                     res.json({
-    //                         message: 'No user logged in',
-    //                         status: false
-    //                     })
-    //                     return;
-    //                 }else{
-    //                         res.json({
-    //                             message: 'Added to cart',
-    //                             status: true,
-    //                         })
-    //                 }
-
-    //                 })
-    //     }
-    // }
-    // })
-
-    //     },
 
     ambulanceController: (req, res) => {
         const { userId, emergency, location, type, status } = req.body
@@ -172,7 +114,197 @@ const checkoutControllers = {
             })
         })
 
-    }
+    },
+
+    ambulanceGet: (req, res) => {
+
+        ambulanceModel.find({}, (error, success) => {
+            if (error) {
+                res.json({
+                    message: 'Error from database',
+                    status: false
+                })
+                return;
+            }
+
+            res.json({
+                message: 'Ambulance data get',
+                status: true,
+                data: success
+            })
+        })
+
+    },
+
+    fireGet: (req, res) => {
+
+        fireModel.find({}, (error, success) => {
+            if (error) {
+                res.json({
+                    message: 'Error from database',
+                    status: false
+                })
+                return;
+            }
+
+            res.json({
+                message: 'Fire data get',
+                status: true,
+                data: success
+            })
+        })
+
+    },
+
+    policeGet: (req, res) => {
+
+        ambulanceModel.find({}, (error, success) => {
+            if (error) {
+                res.json({
+                    message: 'Error from database',
+                    status: false
+                })
+                return;
+            }
+
+            res.json({
+                message: 'Police data get',
+                status: true,
+                data: success
+            })
+        })
+
+    },
+
+    ambulanceStatus: (req, res) => {
+        const {userId, emergency} = req.body
+        const status = 'Completed'
+
+        ambulanceModel.findOneAndUpdate({user_id: userId, emergency: emergency}, {status: status}, (error, success) => {
+            if (error) {
+                res.json({
+                    message: 'Error from database',
+                    status: false
+                })
+                return;
+            }
+
+            res.json({
+                message: 'Status updated',
+                status: true,
+                data: success
+            })
+        })
+
+    },
+
+    fireStatus: (req, res) => {
+        const {userId, emergency} = req.body
+        const status = 'Completed'
+
+        fireModel.findOneAndUpdate({user_id: userId, emergency: emergency}, {status: status}, (error, success) => {
+            if (error) {
+                res.json({
+                    message: 'Error from database',
+                    status: false
+                })
+                return;
+            }
+
+            res.json({
+                message: 'Status updated',
+                status: true,
+                data: success
+            })
+        })
+
+    },
+
+    policeStatus: (req, res) => {
+        const {userId, emergency} = req.body
+        const status = 'Completed'
+
+        policeModel.findOneAndUpdate({user_id: userId, emergency: emergency}, {status: status}, (error, success) => {
+            if (error) {
+                res.json({
+                    message: 'Error from database',
+                    status: false
+                })
+                return;
+            }
+
+            res.json({
+                message: 'Status updated',
+                status: true,
+                data: success
+            })
+        })
+
+    },
+
+    ambulanceDelete: (req, res) => {
+        const {userId, emergency} = req.body
+
+        ambulanceModel.findOneAndDelete({user_id: userId, emergency: emergency}, (error, success) => {
+            if (error) {
+                res.json({
+                    message: 'Error from database',
+                    status: false
+                })
+                return;
+            }
+
+            res.json({
+                message: 'Emergency Deleted',
+                status: true,
+                data: success
+            })
+        })
+
+    },
+
+    fireDelete: (req, res) => {
+        const {userId, emergency} = req.body
+
+        fireModel.findOneAndDelete({user_id: userId, emergency: emergency}, (error, success) => {
+            if (error) {
+                res.json({
+                    message: 'Error from database',
+                    status: false
+                })
+                return;
+            }
+
+            res.json({
+                message: 'Emergency Deleted',
+                status: true,
+                data: success
+            })
+        })
+
+    },
+
+    policeDelete: (req, res) => {
+        const {userId, emergency} = req.body
+
+        policeModel.findOneAndDelete({user_id: userId, emergency: emergency}, (error, success) => {
+            if (error) {
+                res.json({
+                    message: 'Error from database',
+                    status: false
+                })
+                return;
+            }
+
+            res.json({
+                message: 'Emergency Deleted',
+                status: true,
+                data: success
+            })
+        })
+
+    },
+
 }
 
 module.exports = checkoutControllers
